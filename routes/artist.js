@@ -20,11 +20,12 @@ router.get("/search", (req, res) => {
 
   const url = `http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${artist}&api_key=739a58e70418553b07b7c03490b77a09&format=json`;
   const artistInfo = [];
+
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       console.log("Fetch sucessfull");
-      // saves all search results to an array
+
       for (let i = 0; i < data.results.artistmatches.artist.length; i++) {
         artistInfo.push({
           name: data.results.artistmatches.artist[i].name,
@@ -34,7 +35,6 @@ router.get("/search", (req, res) => {
           image: data.results.artistmatches.artist[i].image[3]["#text"],
         });
       }
-
       console.log("Data ready to be downloaded");
     });
 });
